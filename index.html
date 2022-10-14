@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Todo App</title>
+  </head>
+  <body>
+    
+    <!-- Nav Header -->
+    <nav>
+      <div class="container">
+        <div class="circle">T</div>
+      </div>
+    </nav>
+
+    <!-- Aside Section -->
+    <aside></aside>
+
+    <!-- Main Section -->
+    <main>
+      <!-- Add todo -->
+      <div class="add_section">
+        <input type="text" 
+          id="todoInput" placeholder="Add todo..."
+        />
+
+        <button id="addBtn">&plus; Add</button>
+      </div>
+
+      <!-- Todo List -->
+      <div class="todo_list">
+        <h2>Todo List</h2>
+        <hr />
+
+        <div class="todos">
+          <div class="todo">I need to learn new things. <span class="delete"></span></div>
+          <div class="todo">I need to learn new things. <span class="delete"></span></div>
+          <div class="todo">I need to learn new things. <span class="delete"></span></div>
+        </div>
+
+        <!-- <div class="todos"></div> -->
+
+
+        <!-- <div class="toast">Input field is required!</div> -->
+        <div class="toast"></div>
+
+      </div>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
