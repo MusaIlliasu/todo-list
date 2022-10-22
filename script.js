@@ -8,29 +8,24 @@ const addTodo = () => {
     if(!todo.trim()){
         toast.innerHTML = "Input field is required!";
         toast.classList.add("show");
-        setTimeout(() => {
+        return setTimeout(() => {
             toast.classList.remove("show");
         }, 3000);
-        return;
     }
 
-    const divEl = document.createElement("div"); // <div></div>
-    const spanEl = document.createElement("span"); // <span></span>
-    const textNode = document.createTextNode(todo); // user input
+    const id = String(new Date().getTime());
+    const todos = JSON.parse(localStorage.getItem("todos"));
+    if(todos){
+        localStorage.setItem("todos", JSON.stringify([...todos, { id, todo }]));
+    } else {
+        localStorage.setItem("todos", JSON.stringify([{ id, todo} ]));
+    }
 
-    spanEl.setAttribute("class", "delete");  // <span class="delete"></span>
-
-    divEl.setAttribute("class", "todo"); // <div class="todo"></div>
-    divEl.appendChild(textNode) // <div class="todo">todo</div>
-    divEl.appendChild(spanEl) // <div class="todo">todo <span class="delete"></span></div>
-
+    const divEl = document.createElement("div");
+    divEl.setAttribute("class", "todo");
+    divEl.innerHTML = `${todo} <span class="delete" id="${id}"></span>`;
     todoContainer.appendChild(divEl);
     inputEl.value = "";
-
-    // // Delete functionality
-    // spanEl.addEventListener("click", () => {
-    //     todoContainer.removeChild(spanEl.parentElement);
-    // });
 }
 
 addBtn.addEventListener("click", addTodo);
@@ -38,6 +33,22 @@ addBtn.addEventListener("click", addTodo);
 // Delete todo
 todoContainer.addEventListener("click", (event) => {
     if(event.target.className === "delete"){
-        todoContainer.removeChild(event.target.parentElement)
+        const todoId = event.target.id;
+        const todos = JSON.parse(localStorage.getItem("todos"));
+        const result = todos.filter(todo => todo.id !== todoId);
+        localStorage.setItem("todos", JSON.stringify(result));
+        todoContainer.removeChild(event.target.parentElement);
     }
 });
+
+function render(){
+    const todos = JSON.parse(localStorage.getItem("todos"));
+    if(todos){
+        const result = todos.map((todo) => {
+            return `<div class="todo">${todo.todo} <span class="delete" id="${todo.id}"></span></div>`
+        });
+        todoContainer.innerHTML = result.join("");
+    }
+}
+
+render();
